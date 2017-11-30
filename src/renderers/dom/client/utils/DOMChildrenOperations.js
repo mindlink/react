@@ -233,14 +233,16 @@ var DOMChildrenOperations = {
           }
           break;
         case 'REMOVE_NODE':
-          removeChild(parentNode, update.fromNode);
-          if (__DEV__) {
-            ReactInstrumentation.debugTool.onHostOperation({
-              instanceID: parentNodeDebugID,
-              type: 'remove child',
-              payload: {fromIndex: update.fromIndex},
-            });
-          }
+          if (!!update.fromNode.parentElement) {
+            removeChild(parentNode, update.fromNode);
+            if (__DEV__) {
+              ReactInstrumentation.debugTool.onHostOperation({
+                instanceID: parentNodeDebugID,
+                type: 'remove child',
+                payload: {fromIndex: update.fromIndex},
+              });
+            }
+          }          
           break;
       }
     }
