@@ -439,7 +439,9 @@ const DOMRenderer = ReactFiberReconciler({
       parentInstance: Instance,
       child: Instance | TextInstance,
     ): void {
-      parentInstance.removeChild(child);
+      if (!!child.parentElement) {
+        parentInstance.removeChild(child);
+      }
     },
 
     removeChildFromContainer(
